@@ -1,0 +1,147 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{geometry}
+\usepackage{textcomp}
+ \geometry{
+ a4paper,
+ total={170mm,257mm},
+ left=20mm,
+ top=20mm,
+ }
+\title{\textbf{AA 260 Lab 4}}
+\author{Hugh Carbrey, Matthew Idso, Jeffery Zhang}
+\date{July 19th, 2023}
+
+\begin{document}
+
+\maketitle
+
+\section{Problem}
+Consider a heat exchanger that uses hot air to heat cold water. Air enters this heat exchanger at 20 psia and 200\textdegree F at a rate of 100 cfm and leaves at 17 psia and 100\textdegree F. Water enters at 20 psia and 50\textdegree F at a rate of 0.5 lbm/s and exits at 17 psia. Determine the exit temperature of the water and the flow powers required by the air and water through the heat exchanger, respectively.
+
+\section{Assumptions}
+\begin{itemize}
+    \item The system is in a steady state, which allows for time interpolation of relevant values.
+    \item The air can be modeled as an ideal gas.
+    \item The water is not a saturated mixture and is perfectly incompressible.
+    \item There is no heat dissipated outside of the exchanger system.
+    \item There is no change in kinetic energy or gravitational potential energy.
+\end{itemize}
+
+\section{Procedure}
+\subsection{Final Temperature of the Water}
+Assuming a closed system, all of the heat coming from the air must move into the water. This can be respresented by the following equation:
+\begin{center}
+    \(\Delta h_{water} = -\Delta h_{air}\)
+\end{center}
+First, to retrieve values from the tables, we have to convert Fahrenheit values of the air to Rankine.
+\begin{center}
+    \(T_{air, i}\) = 200\textdegree F + 460 = 660 R\\*[10pt]
+    \(T_{air, f}\) = 100\textdegree F + 460 = 560 R
+\end{center}
+From this, Table A-17E tells us: 
+\begin{center}
+    \(h_{air, i}\) = 157.92 Btu/lbm\\*[10pt]
+    \(h_{air, f}\) = 133.86 Btu/lbm
+\end{center}
+To get these values compatible with the rest of our units, we do the following conversions:
+\begin{center}
+    \(h_{air, i}\) = 157.92 \(\displaystyle \frac{Btu}{lbm}\ \cdot\: \frac{778 ft\:\cdot lbf}{1 \:Btu} = 122900\:\)\(\displaystyle\frac{ft\cdot lbf}{lbm}\)\\*[10pt]
+    \(h_{air, f}\) = 133.86 \(\displaystyle \frac{Btu}{lbm}\ \cdot\: \frac{778 ft\:\cdot lbf}{1\: Btu} = 104200\:\)\(\displaystyle\frac{ft\cdot lbf}{lbm}\)\\*[10pt]
+\end{center}
+From here, we can find the change in enthalpy of the air:
+\begin{center}
+    \(\Delta h_{air} = h_{air, f} - h_{air, i} = 104200 - 122900 = -18700\:\)\(\displaystyle\frac{ft\cdot lbf}{lbm}\)
+\end{center}
+\clearpage \noindent
+Utilizing the characteristic of a heat exchanger that we established at the beginning, this means that the change in enthalpy of the water must be:
+\begin{center}
+    \(\Delta h_{water} = 18700\:\)\(\displaystyle\frac{ft\cdot lbf}{lbm}\)
+\end{center}
+From here, we can find the change in the temperature of the water through the following equation:
+\begin{center}
+    \(\Delta h_{water} = C_p\Delta T\)
+\end{center}
+According to Table A-3E, the \(C_p\) of water is 1.00 \(\displaystyle \: \frac{Btu}{lbm\cdot R}\). Unfortunately, this means we have to convert back to Btus.
+\begin{center}
+    \(\Delta h_{water} = 18700\:\)\(\displaystyle\frac{ft\cdot lbf}{lbm} \cdot\: \frac{1\:Btu}{778 \:ft\cdot lbf} = 24.0 \:\frac{Btu}{lbm}\)
+\end{center}
+Therefore, 
+\begin{center}
+    \(\displaystyle \Delta T = \frac{\Delta h_{water}}{C_{p, water}} = \frac{24.0\: \frac{Btu}{lbm}}{1.00 \:\frac{Btu}{lbm\cdot R}} =\) 24.0 R = 24.0 \textdegree F
+\end{center}
+So, 
+\begin{center}
+    50\textdegree F + 24.0 \textdegree F = {74.0 \textdegree F}\\*[20pt]
+\end{center}
+\subsection{Flow Powers of the Air and the Water}
+The flow work of a fluid is given by:
+\begin{center}
+    \(W_{flow} = PV\)
+\end{center}
+Therefore, the flow power is given by:
+\begin{center}
+    \(Power_{flow} = \dot{m}P\nu\)
+\end{center} Based on our second assumption, we can further generalize to:
+\begin{center}
+    \(Power_{flow} = \dot{m}P_{av}\nu_{av}\)
+\end{center}
+For water, based on our incompressibility assumption, the density of water will always be 62.4 \(\displaystyle \frac{lbm}{ft^3}\). From the relation:
+\begin{center}
+    \(\nu\) = \(\displaystyle \frac{1}{\rho}\)
+\end{center}
+We get:
+\begin{center}
+    \(\displaystyle \nu_{water} = \frac{1}{62.4 \:\frac{lbm}{ft^3}} = 0.0160 \:\frac{ft^3}{lbm}\)
+\end{center}
+For the average pressure, we have to convert to pounds per square foot:
+\begin{center}
+    \(\displaystyle P_{av} = \frac{20 + 17}{2} \:\frac{lbf}{in^2}\cdot \frac{144\:in^2}{1\:ft^2} = 2664\: \frac{lbf}{ft^2}\)
+\end{center}
+Plugging in values,
+\begin{center}
+    \(\displaystyle Power_{flow, water} = 0.5 \:\frac{lbm}{s}\cdot 2664\: \frac{lbf}{ft^2}\cdot0.0160 \:\frac{ft^3}{lbm} = 21.3 \:\frac{lbm\cdot ft^2}{s^3}\)
+\end{center}
+\clearpage \noindent
+For air, we need to find the initial and final specific volume, to be able to find the average. We can do this by using the relation: 
+\begin{center}
+    \(\displaystyle h = u + P\nu\) \\*[10pt]
+    \(\displaystyle \nu = \frac{h - u}{P}\)
+\end{center}
+We already have the enthalpy values from the previous section, so we only need the specific energies. Table A-17E tells us:
+\begin{center}
+    \(\displaystyle u_i = 112.67 \:\frac{Btu}{lbm}\)\\*[10pt]
+    \(\displaystyle u_f = 95.47 \:\frac{Btu}{lbm}\)
+\end{center}
+Again, we have to convert:
+\begin{center}
+    \(u_{air, i}\) = 112.67 \(\displaystyle \frac{Btu}{lbm}\ \cdot\: \frac{778 ft\:\cdot lbf}{1 \:Btu} = 87660\:\)\(\displaystyle\frac{ft\cdot lbf}{lbm}\)\\*[10pt]
+    \(u_{air, f}\) = 95.47 \(\displaystyle \frac{Btu}{lbm}\ \cdot\: \frac{778 ft\:\cdot lbf}{1\: Btu} = 74280\:\)\(\displaystyle\frac{ft\cdot lbf}{lbm}\)\\*[10pt]
+\end{center}
+Therefore,
+\begin{center}
+    \(\displaystyle\nu_i = \frac{h_i - u_i}{P_i}\rightarrow \frac{122900 - 112.67}{2880} = 42.6\:\frac{ft^3}{lbm}\)\\*[10pt]
+    \(\displaystyle\nu_f = \frac{h_f - u_f}{P_f}\rightarrow \frac{104200 - 95.47}{2448} = 42.5\:\frac{ft^3}{lbm}\)\\*[10pt]
+    \(v_{av} = 42.55\:\frac{ft^3}{lbm}\)
+\end{center}
+Furthermore, we must convert the volumetric flow units:
+\begin{center}
+    \(\displaystyle100\:\frac{ft^3}{min} \cdot \frac{1\:min}{60\:s} = 1.67\:\frac{ft^3}{s}\)
+\end{center}
+We know the relation:
+\begin{center}
+    \(\displaystyle\dot{m} = \frac{\dot{V}}{\nu}\)
+\end{center}
+Therefore:
+\begin{center}
+    \(\displaystyle\dot{m_{air}} = \frac{{1.67 \:\frac{ft^3}{s}}}{42.55\:\frac{ft^3}{lbm}} = 0.0392\:\frac{lbm}{s}\)
+\end{center}
+The beginning and exit pressures for both water and air are the same, so we can use the same average value as shown in our water calculation. Finally:
+\begin{center}
+    \(\displaystyle Power_{flow, air} = 0.0392 \:\frac{lbm}{s}\cdot 2664\: \frac{lbf}{ft^2}\cdot42.55 \:\frac{ft^3}{lbm} = 4440 \:\frac{lbm\cdot ft^2}{s^3}\)
+\end{center}
+\clearpage \noindent
+\section{Results}
+We have found that the exit temperature of the water is 74.0 \textdegree F.\\*[7pt]
+We have found that the flow powers of the air and water are 4440 \(\displaystyle\:\frac{lbm\cdot ft^2}{s^3}\) and 21.3 \(\displaystyle\:\frac{lbm\cdot ft^2}{s^3}\), respectively.
+\end{document}
